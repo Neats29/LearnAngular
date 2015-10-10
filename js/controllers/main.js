@@ -1,19 +1,31 @@
 app.controller('calController', function($scope) {
-    $scope.firstValue = null;
-    $scope.secondValue = null;
+    $scope.currentValue = null;
     $scope.sum = null;
-    $scope.lastSum = null;
+    $scope.displayed = null;
+    
+    $scope.add = '+';
+    $scope.subtract = '-';
+
 
     
-    $scope.add = function(a, b) {
-        a = $scope.firstValue;
-        return $scope.sum;
+    $scope.numberButton = function(clickedValue) {
+        $scope.currentValue += clickedValue;
+        $scope.displayed = clickedValue;
+    }
+        
+    
+    
+    $scope.calculate = function(operator) {
+        return operator === $scope.add ? $scope.sum = $scope.sum + $scope.currentValue : $scope.sum = $scope.sum - $scope.currentValue;
     }
     
-    $scope.calculate = function(a, b) {
-        a = $scope.firstValue;
-        b = $scope.secondValue;
-        $scope.sum = a + b;
-        return $scope.sum;
+    $scope.equals = function() {
+        $scope.calculate();
+        $scope.displayed = $scope.sum;
+    }
+    
+    
+    $scope.clear = function() {
+        $scope.sum = null;
     }
 })
