@@ -1,22 +1,33 @@
 app.controller('calController', function($scope) {
-    $scope.currentValue = null;
     $scope.sum = null;
-    $scope.displayed = null;
+    $scope.displayed = '0';
+    $scope.secondValue = null;
+    $scope.operator = null;
     
-    $scope.add = '+';
-    $scope.subtract = '-';
-
-
+    $scope.operation = function(x){
+        return $scope.operator = x;
+    }
     
     $scope.numberButton = function(clickedValue) {
-        $scope.currentValue += clickedValue;
-        $scope.displayed = clickedValue;
+        if ($scope.displayed == '0') { 
+            $scope.sum = clickedValue; 
+            $scope.displayed = clickedValue; 
+        }
+        else {
+            $scope.secondValue = clickedValue;
+            $scope.displayed = clickedValue;
+        }
     }
         
     
-    
-    $scope.calculate = function(operator) {
-        return operator === $scope.add ? $scope.sum = $scope.sum + $scope.currentValue : $scope.sum = $scope.sum - $scope.currentValue;
+    $scope.calculate = function() {
+        $scope.sum = $scope.sum.toFixed(1);
+        return 
+        $scope.operator === 'add'      ? $scope.sum = $scope.sum + $scope.displayed :
+        $scope.operator === 'subtract' ? $scope.sum = $scope.sum - $scope.displayed :
+        $scope.operator === 'multiply' ? $scope.sum = $scope.sum * $scope.displayed :
+                                         $scope.sum = $scope.sum / $scope.displayed ;
+        
     }
     
     $scope.equals = function() {
@@ -27,5 +38,7 @@ app.controller('calController', function($scope) {
     
     $scope.clear = function() {
         $scope.sum = null;
+        $scope.displayed = '0';
+        $scope.currentValue = null;
     }
 })
